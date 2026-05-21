@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cameron Schaff — CCNP & Cybersecurity Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: #111318;
+      --surface2: #181c24;
+      --border: #1e2430;
+      --accent: #00e5ff;
+      --accent2: #ff6b35;
+      --accent3: #a8ff3e;
+      --text: #e8eaf0;
+      --muted: #6b7280;
+      --cisco-blue: #1ba0d8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,12,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .badge-nav {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 64px 80px;
+      overflow: hidden;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+
+    .hero-eyebrow span {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    h1.hero-name {
+      font-size: clamp(56px, 8vw, 120px);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+
+    h1.hero-name .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232,234,240,0.4);
+    }
+
+    .hero-role {
+      margin-top: 32px;
+      font-size: clamp(16px, 2vw, 22px);
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.6;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s forwards;
+    }
+
+    .hero-role strong { color: var(--text); font-weight: 600; }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 56px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-cta {
+      margin-top: 56px;
+      display: flex;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── FLOATING TERMINAL ── */
+    .terminal-float {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 380px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 1s 0.8s forwards;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+
+    .term-bar {
+      background: var(--surface2);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .term-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+
+    .term-dot.red { background: #ff5f57; }
+    .term-dot.yellow { background: #ffbd2e; }
+    .term-dot.green { background: #28c841; }
+
+    .term-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: 8px;
+    }
+
+    .term-body {
+      padding: 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .term-line { display: block; }
+    .term-prompt { color: var(--accent3); }
+    .term-cmd { color: var(--text); }
+    .term-out { color: var(--muted); }
+    .term-success { color: var(--accent3); }
+    .term-warn { color: var(--accent2); }
+    .term-info { color: var(--cisco-blue); }
+    .term-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--accent);
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 64px;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h2.section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 64px;
+      line-height: 1.1;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .cert-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cert-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateX(6px);
+    }
+
+    .cert-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .cert-info h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .cert-info p {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .cert-status {
+      margin-left: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .status-earned {
+      background: rgba(168,255,62,0.12);
+      color: var(--accent3);
+      border: 1px solid rgba(168,255,62,0.3);
+    }
+
+    .status-progress {
+      background: rgba(0,229,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(0,229,255,0.25);
+    }
+
+    /* ── LABS GRID ── */
+    #labs { background: var(--bg); }
+
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      margin-top: -32px;
+    }
+
+    .filter-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,229,255,0.06);
+    }
+
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .lab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lab-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-accent, var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .lab-card:hover {
+      border-color: var(--card-accent, var(--accent));
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .lab-card:hover::before { transform: scaleX(1); }
+
+    .lab-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .lab-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .lab-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .tag-cisco { background: rgba(27,160,216,0.15); color: var(--cisco-blue); border: 1px solid rgba(27,160,216,0.25); }
+    .tag-palo  { background: rgba(255,107,53,0.15); color: var(--accent2); border: 1px solid rgba(255,107,53,0.25); }
+    .tag-ai    { background: rgba(168,255,62,0.12); color: var(--accent3); border: 1px solid rgba(168,255,62,0.25); }
+    .tag-net   { background: rgba(0,229,255,0.1); color: var(--accent); border: 1px solid rgba(0,229,255,0.2); }
+
+    .lab-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .lab-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    .lab-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .lab-doc-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--card-accent, var(--accent));
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .lab-card:hover .lab-doc-link { opacity: 1; }
+
+    .lab-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+    }
+
+    .skill-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .skill-pct {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .skill-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--accent);
+      transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+      width: 0;
+    }
+
+    .skill-fill.animated { width: var(--w); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contact-inner p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 32px 64px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    footer p strong {
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .terminal-float { display: none; }
+      section { padding: 64px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#">CS://PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#labs">Labs</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="badge-nav">CCNA ✓ · CCNP ⟶</span>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-eyebrow">Newport High School &nbsp;<span>·</span>&nbsp; Cisco Networking Academy &nbsp;<span>·</span>&nbsp; Class of 2025</p>
+  <h1 class="hero-name">
+    Cameron<br>
+    <span class="line2">Schaff</span>
+  </h1>
+  <p class="hero-role">
+    <strong>CCNA Certified.</strong> CCNP Candidate. Building hands-on expertise in
+    enterprise networking, next-gen firewall security, routing protocols, and local AI infrastructure —
+    all from a high school lab bench.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">15+</span>
+      <span class="stat-label">Lab Reports</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Tech Domains</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2×</span>
+      <span class="stat-label">Titan RTX GPUs</span>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#labs">View Lab Work</a>
+    <a class="btn btn-outline" href="#contact">Get In Touch</a>
+  </div>
+
+  <!-- Floating terminal -->
+  <div class="terminal-float">
+    <div class="term-bar">
+      <div class="term-dot red"></div>
+      <div class="term-dot yellow"></div>
+      <div class="term-dot green"></div>
+      <span class="term-title">PA-220 — admin@192.168.1.1</span>
+    </div>
+    <div class="term-body">
+      <span class="term-line"><span class="term-prompt">admin@PA-220&gt;</span> <span class="term-cmd">show system info</span></span>
+      <span class="term-line term-out">hostname: PA-220</span>
+      <span class="term-line term-out">ip-address: 192.168.1.1</span>
+      <span class="term-line term-out">sw-version: 10.2.6</span>
+      <span class="term-line term-out">model: PA-220</span>
+      <span class="term-line">&nbsp;</span>
+      <span class="term-line"><span class="term-prompt">R1#</span> <span class="term-cmd">show bgp summary</span></span>
+      <span class="term-line term-info">Neighbor    AS    State</span>
+      <span class="term-line term-success">11.0.0.3    2     Established</span>
+      <span class="term-line term-success">12.0.0.2    3     Established</span>
+      <span class="term-line">&nbsp;</span>
+      <span class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">torchrun --nproc_per_node=2 train.py</span></span>
+      <span class="term-line term-warn">Step 5000 | Loss: 3.58 | Tok/s: 9.9k</span>
+      <span class="term-line term-success">✓ Checkpoint saved (val_loss improved)</span>
+      <span class="term-line"><span class="term-prompt">$</span> <span class="term-cursor"></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-label">Background</div>
+  <h2 class="section-title reveal">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a <strong>senior at Newport High School</strong> enrolled in the Cisco CCNP & Cybersecurity program. I earned my <strong>CCNA certification</strong> and am actively pursuing the CCNP track, working through enterprise routing, advanced security, and network automation.</p>
+      <p>My lab work spans three areas: <strong>Cisco enterprise networking</strong> (BGP, OSPF, EIGRP, iBGP, IPSec VPN), <strong>Palo Alto next-gen firewall</strong> configuration and security policy, and <strong>local AI/GPU infrastructure</strong> — including distributed multi-GPU model training and inference on a Lenovo ThinkStation P7.</p>
+      <p>Every report on this page was written, configured, and signed off in a real physical lab with real hardware — not a simulator.</p>
+    </div>
+    <div class="cert-stack reveal">
+      <div class="cert-card">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-info">
+          <h4>Cisco CCNA</h4>
+          <p>200-301 · Cisco Certified Network Associate</p>
+        </div>
+        <span class="cert-status status-earned">EARNED</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">⚡</div>
+        <div class="cert-info">
+          <h4>Cisco CCNP</h4>
+          <p>Enterprise · In Progress</p>
+        </div>
+        <span class="cert-status status-progress">IN PROGRESS</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🔥</div>
+        <div class="cert-info">
+          <h4>Palo Alto PCNSA</h4>
+          <p>Network Security Administrator · Studying</p>
+        </div>
+        <span class="cert-status status-progress">STUDYING</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🤖</div>
+        <div class="cert-info">
+          <h4>Local AI Infrastructure</h4>
+          <p>2× Titan RTX · DDP Training · LLM Inference</p>
+        </div>
+        <span class="cert-status status-earned">HANDS-ON</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LABS ── -->
+<section id="labs">
+  <div class="section-label">Work</div>
+  <h2 class="section-title reveal">Lab Portfolio</h2>
+
+  <div class="filter-row reveal">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All Labs</button>
+    <button class="filter-btn" onclick="filterCards('cisco', this)">Cisco / Routing</button>
+    <button class="filter-btn" onclick="filterCards('palo', this)">Palo Alto</button>
+    <button class="filter-btn" onclick="filterCards('ai', this)">AI / GPU</button>
+  </div>
+
+  <div class="labs-grid">
+
+    <!-- PALO ALTO LABS -->
+    <div class="lab-card reveal" data-cat="palo" style="--card-accent: var(--accent2)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🛡️</div>
+        <div class="lab-tags">
+          <span class="tag tag-palo">PAN-OS</span>
+          <span class="tag tag-palo">Firewall</span>
+        </div>
+      </div>
+      <h3>SOHO Initial Config — PA-220 (PAN-OS 10.2.6)</h3>
+      <p>Full initial configuration of a Palo Alto PA-220 for SOHO internet deployment. Covers console access via PuTTY, security zone creation (Untrust-L3, Trust-L3, Trust-L2), interface assignment, VLAN and DHCP server setup, NAT policy, security profile groups, and MGMT IP configuration.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="Cybersecurity_Lab_2_Initial_config__soho__PA220.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">Sep 2024</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="palo" style="--card-accent: var(--accent2)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🔗</div>
+        <div class="lab-tags">
+          <span class="tag tag-palo">PAN-OS</span>
+          <span class="tag tag-net">VPN</span>
+        </div>
+      </div>
+      <h3>IPSec Site-to-Site VPN — Palo Alto</h3>
+      <p>Configuration of an IPSec site-to-site tunnel on the PA-220. Covers IKE gateway setup, IPSec tunnel interface, proxy IDs, security policies permitting tunnel traffic, and verification of encrypted data flow between two simulated sites.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="IPSEC_Site-to-Site.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">Fall 2024</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="palo" style="--card-accent: var(--accent2)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🌐</div>
+        <div class="lab-tags">
+          <span class="tag tag-palo">PAN-OS</span>
+          <span class="tag tag-palo">Security</span>
+        </div>
+      </div>
+      <h3>URL Filtering Policy — Palo Alto</h3>
+      <p>Configuring URL filtering profiles on the PA-220 to enforce content policy. Covers custom URL category creation, block/allow actions, SSL inspection integration, and testing with real browsing traffic to validate enforcement rules.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="UrlFilteringWriteup2.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">Fall 2024</span>
+      </div>
+    </div>
+
+    <!-- CISCO ROUTING LABS -->
+    <div class="lab-card reveal" data-cat="cisco" style="--card-accent: var(--cisco-blue)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🔀</div>
+        <div class="lab-tags">
+          <span class="tag tag-cisco">eBGP</span>
+          <span class="tag tag-cisco">OSPF</span>
+          <span class="tag tag-cisco">EIGRP</span>
+        </div>
+      </div>
+      <h3>Cross-Network eBGP Configuration</h3>
+      <p>Multi-router lab with 6 ISR 4321s deploying eBGP across three autonomous systems. Internal routing uses OSPF (areas 1 and 3) and EIGRP (AS 2) with full route redistribution. Dual-stack IPv4/IPv6 throughout including OSPFv3 interface-level config and BGP address-family ipv6.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="EBGP_-_Writeup.pdf" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">Nov 2024</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="cisco" style="--card-accent: var(--cisco-blue)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🔄</div>
+        <div class="lab-tags">
+          <span class="tag tag-cisco">iBGP</span>
+          <span class="tag tag-cisco">BGP</span>
+        </div>
+      </div>
+      <h3>Internal BGP (iBGP) Configuration</h3>
+      <p>Configuration of iBGP peering within a single autonomous system. Covers full-mesh iBGP requirements, route reflectors, next-hop-self, and synchronization. Demonstrates how iBGP differs from eBGP in AS path handling and loop prevention behavior.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="iBGPwrite.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">Nov 2024</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="cisco" style="--card-accent: var(--cisco-blue)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🛰️</div>
+        <div class="lab-tags">
+          <span class="tag tag-net">Starlink</span>
+          <span class="tag tag-cisco">Ethernet</span>
+        </div>
+      </div>
+      <h3>Starlink Setup & Ethernet Configuration</h3>
+      <p>Physical deployment and configuration of a Starlink dish and router, including Ethernet bypass mode to remove the Starlink router from the path and pass a public IP directly to a third-party firewall. Covers bypass adapter setup, static routing, and connectivity verification.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="Starlink_Setup_and_Ethernet_Configuration_Via_the_Starlink_Router.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">Fall 2024</span>
+      </div>
+    </div>
+
+    <!-- AI / GPU LABS -->
+    <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🧠</div>
+        <div class="lab-tags">
+          <span class="tag tag-ai">LLM</span>
+          <span class="tag tag-ai">PyTorch DDP</span>
+        </div>
+      </div>
+      <h3>Local LLM Pretraining — 984M Parameter Model</h3>
+      <p>Full transformer model trained from scratch on a ThinkStation P7 with 2× Titan RTX GPUs. Covers Docker + NVIDIA Container Toolkit setup, BPE tokenization via SentencePiece, distributed training with torchrun and NCCL, mixed precision FP16, gradient checkpointing, and supervised fine-tuning (SFT).</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="Local_LLM_Lab_Report_Cameron_Schaff.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">2025</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
+      <div class="lab-card-header">
+        <div class="lab-icon">⚡</div>
+        <div class="lab-tags">
+          <span class="tag tag-ai">HuggingFace</span>
+          <span class="tag tag-ai">GPU Offload</span>
+        </div>
+      </div>
+      <h3>GPU Offload Testing — Nemotron Super 49B</h3>
+      <p>Running NVIDIA's Nemotron Super 49B parameter model via HuggingFace with multi-GPU offloading across consumer hardware. Tests layer distribution between GPUs, quantization strategies (GPTQ/AWQ), and inference throughput at different offload configurations.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="AI_GPU_offload_testing_via_HF___Nemotron_super_49B_v1__Nvidi.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">2025</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🎨</div>
+        <div class="lab-tags">
+          <span class="tag tag-ai">ComfyUI</span>
+          <span class="tag tag-ai">Multi-GPU</span>
+        </div>
+      </div>
+      <h3>ComfyUI Distributed Node Multi-GPU</h3>
+      <p>Implementing ComfyUI with distributed node execution across multiple GPUs for parallel image generation. Covers node graph architecture, VRAM allocation per model component, batch inference pipelines, and network-connected worker nodes for scaling throughput.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="ComfyUI_images_Distributed_Node_MultiGPU_implementation.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">2025</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
+      <div class="lab-card-header">
+        <div class="lab-icon">🔬</div>
+        <div class="lab-tags">
+          <span class="tag tag-ai">LLM</span>
+          <span class="tag tag-ai">RAG</span>
+        </div>
+      </div>
+      <h3>LLM Augmentation — RAG & Context</h3>
+      <p>Implementing retrieval-augmented generation (RAG) to augment a local model with external knowledge. Covers vector embedding generation, FAISS similarity search, context window injection, and prompt engineering for grounded responses without fine-tuning.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="LLM_Augmentation.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">2025</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
+      <div class="lab-card-header">
+        <div class="lab-icon">💻</div>
+        <div class="lab-tags">
+          <span class="tag tag-ai">Local AI</span>
+          <span class="tag tag-ai">Program</span>
+        </div>
+      </div>
+      <h3>Local AI Program Lab (Enhanced)</h3>
+      <p>Comprehensive local AI deployment program covering model selection, hardware requirements, Ollama and LM Studio setup, API integration for local inference, and building applications that call local model endpoints as a drop-in for cloud AI providers.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="Enhanced_LocalAIProgramLab.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">2025</span>
+      </div>
+    </div>
+
+    <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
+      <div class="lab-card-header">
+        <div class="lab-icon">📊</div>
+        <div class="lab-tags">
+          <span class="tag tag-ai">AI Lab</span>
+          <span class="tag tag-ai">Writeup</span>
+        </div>
+      </div>
+      <h3>AI Lab Writeup — Systems Overview</h3>
+      <p>Comprehensive writeup of the AI infrastructure build: workstation selection, GPU configuration, OS setup (Pop!_OS with NVIDIA ISO), CUDA toolkit installation, benchmarking methodology, and lessons learned running large model inference on consumer-grade hardware.</p>
+      <div class="lab-card-footer">
+        <a class="lab-doc-link" href="AI-Lab-Writeup.docx" download>
+          ↓ Download Report
+        </a>
+        <span class="lab-date">2025</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="section-label">Technical Skills</div>
+  <h2 class="section-title reveal">Competencies</h2>
+  <div class="skills-grid">
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">BGP / eBGP / iBGP</span>
+        <span class="skill-pct">88%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:88%; background: var(--cisco-blue)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">OSPF (v2 + v3)</span>
+        <span class="skill-pct">90%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:90%; background: var(--cisco-blue)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">EIGRP</span>
+        <span class="skill-pct">82%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:82%; background: var(--cisco-blue)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">Palo Alto PAN-OS</span>
+        <span class="skill-pct">80%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:80%; background: var(--accent2)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">IPSec / VPN</span>
+        <span class="skill-pct">78%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:78%; background: var(--accent2)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">Network Security Policy</span>
+        <span class="skill-pct">82%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:82%; background: var(--accent2)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">PyTorch / DDP Training</span>
+        <span class="skill-pct">72%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:72%; background: var(--accent3)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">Linux / Docker / CUDA</span>
+        <span class="skill-pct">84%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:84%; background: var(--accent3)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">Python / Scripting</span>
+        <span class="skill-pct">76%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:76%; background: var(--accent3)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">IPv4 + IPv6 Dual-Stack</span>
+        <span class="skill-pct">86%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:86%; background: var(--accent)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">VLAN / Switching</span>
+        <span class="skill-pct">88%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:88%; background: var(--accent)"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-item-top">
+        <span class="skill-name">Technical Documentation</span>
+        <span class="skill-pct">94%</span>
+      </div>
+      <div class="skill-bar"><div class="skill-fill" style="--w:94%; background: var(--accent)"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title reveal" style="text-align:center">Let's Connect</h2>
+  <div class="contact-inner reveal">
+    <p>I'm a senior student passionate about networking, security, and AI infrastructure. Open to internships, mentorship, and conversations about the industry.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="https://github.com/" target="_blank">GitHub →</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 <strong>Cameron Schaff</strong> — Newport High School CCNP Program</p>
+  <p>Built with <strong>HTML / CSS / JS</strong> · Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Skill bar animation ──
+  const skillObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(f => f.classList.add('animated'));
+        skillObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('#skills').forEach(el => skillObs.observe(el));
+
+  // ── Filter ──
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.lab-card').forEach(card => {
+      const match = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = match ? 'flex' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
