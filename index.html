@@ -130,8 +130,6 @@
       line-height: 0.92;
       letter-spacing: -0.03em;
       margin-bottom: 8px;
-      margin: 0 auto; /* Add this line to center the text */
-      max-width: 95%; /* Adjust the maximum width as needed */
       opacity: 0;
       animation: fadeUp 0.7s 0.2s forwards;
     }
@@ -985,9 +983,10 @@
       .nav-hamburger { display: flex; }
       .hero { padding: 100px 32px 60px; }
       h1.hero-name {
-        font-size: clamp(48px, 10vw, 80px);
+        font-size: clamp(36px, 8vw, 80px);
         white-space: normal;
-        word-break: break-word;
+        word-break: keep-all;
+        overflow-wrap: break-word;
       }
       section { padding: 64px 32px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -998,10 +997,11 @@
 
     @media (max-width: 480px) {
       h1.hero-name {
-        font-size: clamp(36px, 11vw, 56px);
+        font-size: clamp(28px, 10vw, 56px);
         letter-spacing: -0.02em;
         white-space: normal;
-        word-break: break-word;
+        word-break: keep-all;
+        overflow-wrap: break-word;
         line-height: 1.0;
       }
       .hero { padding: 88px 20px 52px; }
@@ -1023,7 +1023,6 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" href="#">CS://PORTFOLIO</a>
   <ul class="nav-links">
@@ -1044,7 +1043,6 @@
   <a href="#contact" class="mobile-nav-link">Contact</a>
 </div>
 
-<!-- ── HERO ── -->
 <section class="hero">
   <p class="hero-eyebrow">Cisco Networking Academy &nbsp;<span>·</span>&nbsp; Network & Security Engineer</p>
   <h1 class="hero-name">
@@ -1075,7 +1073,6 @@
     <a class="btn btn-outline" href="#contact">Get In Touch</a>
   </div>
 
-  <!-- Floating terminal -->
   <div class="terminal-float">
     <div class="term-bar">
       <div class="term-dot red"></div>
@@ -1103,7 +1100,6 @@
   </div>
 </section>
 
-<!-- ── ABOUT ── -->
 <section id="about">
   <div class="section-label">Background</div>
   <h2 class="section-title reveal">Who I Am</h2>
@@ -1174,7 +1170,6 @@
   </div>
 </section>
 
-<!-- ── LABS ── -->
 <section id="labs">
   <div class="section-label">Work</div>
   <h2 class="section-title reveal">Lab Portfolio</h2>
@@ -1188,7 +1183,6 @@
 
   <div class="labs-grid">
 
-    <!-- PALO ALTO LABS -->
     <div class="lab-card reveal" data-cat="palo" style="--card-accent: var(--accent2)">
       <div class="lab-card-header">
         <div class="lab-icon">🛡️</div>
@@ -1237,7 +1231,6 @@
       </div>
     </div>
 
-    <!-- CISCO ROUTING LABS -->
     <div class="lab-card reveal" data-cat="cisco" style="--card-accent: var(--cisco-blue)">
       <div class="lab-card-header">
         <div class="lab-icon">🔀</div>
@@ -1287,7 +1280,6 @@
       </div>
     </div>
 
-    <!-- AI / GPU LABS -->
     <div class="lab-card reveal" data-cat="ai" style="--card-accent: var(--accent3)">
       <div class="lab-card-header">
         <div class="lab-icon">🧠</div>
@@ -1387,7 +1379,6 @@
   </div>
 </section>
 
-<!-- ── SKILLS ── -->
 <section id="skills">
   <div class="section-label">Technical Skills</div>
   <h2 class="section-title reveal">Competencies</h2>
@@ -1479,7 +1470,6 @@
   </div>
 </section>
 
-<!-- ── CONTACT ── -->
 <section id="contact">
   <div class="section-label">Contact</div>
   <h2 class="section-title reveal" style="text-align:center">Let's Connect</h2>
@@ -1492,13 +1482,11 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
 <footer>
   <p>© 2026 <strong>Cameron Schaff</strong> — Cisco CCNP & Cybersecurity Program</p>
   <p>Built with <strong>HTML / CSS / JS</strong> · Hosted on GitHub Pages</p>
 </footer>
 
-<!-- ── LAB REPORT MODAL ── -->
 <div class="lab-modal-overlay" id="labModal">
   <div class="lab-modal-box">
     <div class="lab-modal-accent-bar" id="labModalBar"></div>
@@ -1517,7 +1505,6 @@
   </div>
 </div>
 
-<!-- ── CERT MODAL ── -->
 <div class="modal-overlay" id="certModal">
   <div class="modal-box">
     <button class="modal-close" id="modalClose">✕</button>
