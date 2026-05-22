@@ -104,6 +104,7 @@
       flex-direction: column;
       justify-content: center;
       padding: 120px 64px 80px;
+      padding-right: 460px; /* reserve room so terminal never overlaps text */
       overflow: hidden;
     }
 
@@ -124,7 +125,7 @@
     }
 
     h1.hero-name {
-      font-size: clamp(56px, 8vw, 120px);
+      font-size: clamp(44px, 5.5vw, 80px);
       font-weight: 800;
       line-height: 0.92;
       letter-spacing: -0.03em;
@@ -547,6 +548,10 @@
       gap: 6px;
       opacity: 0.7;
       transition: opacity 0.2s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
     }
 
     .lab-card:hover .lab-doc-link { opacity: 1; }
@@ -681,16 +686,336 @@
       transform: translateY(0);
     }
 
+    /* ── MOBILE NAV ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 57px;
+      left: 0; right: 0;
+      background: rgba(10,12,16,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      padding: 20px 24px;
+      flex-direction: column;
+      gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+
+    /* ── CERT MODAL ── */
+    .cert-card {
+      cursor: pointer;
+    }
+    .cert-card[data-detail]:hover {
+      border-color: var(--accent);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px;
+      max-width: 520px;
+      width: 100%;
+      position: relative;
+      animation: fadeUp 0.25s forwards;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .modal-icon { font-size: 36px; }
+    .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .modal-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .modal-status {
+      margin-left: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .modal-body {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .modal-body strong { color: var(--text); }
+    .modal-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .modal-skill-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      background: rgba(0,229,255,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0,229,255,0.2);
+      letter-spacing: 0.05em;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* ── LAB REPORT MODAL ── */
+    .lab-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lab-modal-overlay.open { display: flex; }
+
+    .lab-modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      animation: fadeUp 0.25s forwards;
+      overflow: hidden;
+    }
+
+    .lab-modal-accent-bar {
+      height: 3px;
+      width: 100%;
+    }
+
+    .lab-modal-inner {
+      padding: 36px;
+    }
+
+    .lab-modal-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 1;
+    }
+    .lab-modal-close:hover { color: var(--text); }
+
+    .lab-modal-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .lab-modal-icon-lg { font-size: 36px; }
+    .lab-modal-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .lab-modal-date {
+      margin-left: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .lab-modal-title {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .lab-modal-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .lab-modal-desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .lab-modal-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .lab-modal-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-weight: 700;
+    }
+    .lab-modal-dl-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .lab-modal-dl-primary:hover { background: #fff; transform: translateY(-1px); }
+    .lab-modal-dl-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .lab-modal-dl-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    .lab-modal-filetype {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      padding: 2px 6px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      align-self: center;
+    }
+
+    /* ── TAG TOOLTIP (clickable) ── */
+    .tag {
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .tag:hover { opacity: 0.8; transform: scale(1.05); }
+    .tag.active-filter {
+      box-shadow: 0 0 0 2px currentColor;
+    }
+
     /* ── RESPONSIVE ── */
+
+    /* Tablet: hide terminal, reset hero right-padding */
+    @media (max-width: 1100px) {
+      .hero { padding-right: 64px; }
+      .terminal-float { display: none; }
+    }
+
     @media (max-width: 900px) {
       nav { padding: 14px 20px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 24px 60px; }
-      .terminal-float { display: none; }
-      section { padding: 64px 24px; }
+      .nav-hamburger { display: flex; }
+      .hero { padding: 100px 32px 60px; }
+      h1.hero-name {
+        font-size: clamp(48px, 10vw, 80px);
+        white-space: normal;
+        word-break: break-word;
+      }
+      section { padding: 64px 32px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
-      .hero-stats { gap: 24px; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; }
+      .badge-nav { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      h1.hero-name {
+        font-size: clamp(36px, 11vw, 56px);
+        letter-spacing: -0.02em;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.0;
+      }
+      .hero { padding: 88px 20px 52px; }
+      section { padding: 56px 20px; }
+      .hero-stats { gap: 20px; }
+      .stat-num { font-size: 28px; }
+      .btn { padding: 12px 20px; font-size: 12px; }
+      .hero-cta { flex-direction: column; gap: 10px; }
+      .hero-cta .btn { text-align: center; justify-content: center; }
+      .labs-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .modal-box { padding: 24px; }
+      .modal-header { flex-wrap: wrap; gap: 10px; }
+      .modal-status { margin-left: 0; }
+      .lab-modal-inner { padding: 24px; }
+      footer { padding: 24px 20px; }
     }
   </style>
 </head>
@@ -706,7 +1031,16 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <span class="badge-nav">CCNA ✓ · CCNP ⟶</span>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#labs" class="mobile-nav-link">Labs</a>
+  <a href="#skills" class="mobile-nav-link">Skills</a>
+  <a href="#contact" class="mobile-nav-link">Contact</a>
+</div>
 
 <!-- ── HERO ── -->
 <section class="hero">
@@ -778,7 +1112,7 @@
       <p>Every report on this page was written, configured, and signed off in a professional lab environment on enterprise-grade physical hardware.</p>
     </div>
     <div class="cert-stack reveal">
-      <div class="cert-card">
+      <div class="cert-card" data-detail="ccna">
         <div class="cert-icon">🏆</div>
         <div class="cert-info">
           <h4>Cisco CCNA</h4>
@@ -786,7 +1120,7 @@
         </div>
         <span class="cert-status status-earned">EARNED</span>
       </div>
-      <div class="cert-card">
+      <div class="cert-card" data-detail="secplus">
         <div class="cert-icon">🔒</div>
         <div class="cert-info">
           <h4>CompTIA Security+</h4>
@@ -794,7 +1128,7 @@
         </div>
         <span class="cert-status status-earned">EARNED</span>
       </div>
-      <div class="cert-card">
+      <div class="cert-card" data-detail="awscloud">
         <div class="cert-icon">☁️</div>
         <div class="cert-info">
           <h4>AWS Cloud Foundations</h4>
@@ -802,7 +1136,7 @@
         </div>
         <span class="cert-status status-earned">EARNED</span>
       </div>
-      <div class="cert-card">
+      <div class="cert-card" data-detail="awsai">
         <div class="cert-icon">🤖</div>
         <div class="cert-info">
           <h4>AWS AI Fundamentals</h4>
@@ -810,7 +1144,7 @@
         </div>
         <span class="cert-status status-earned">EARNED</span>
       </div>
-      <div class="cert-card">
+      <div class="cert-card" data-detail="ccnp">
         <div class="cert-icon">⚡</div>
         <div class="cert-info">
           <h4>Cisco CCNP</h4>
@@ -818,7 +1152,7 @@
         </div>
         <span class="cert-status status-progress">ADVANCED TRACK</span>
       </div>
-      <div class="cert-card">
+      <div class="cert-card" data-detail="pcnsa">
         <div class="cert-icon">🔥</div>
         <div class="cert-info">
           <h4>Palo Alto PCNSA</h4>
@@ -826,7 +1160,7 @@
         </div>
         <span class="cert-status status-progress">APPLIED KNOWLEDGE</span>
       </div>
-      <div class="cert-card">
+      <div class="cert-card" data-detail="ailab">
         <div class="cert-icon">🖥️</div>
         <div class="cert-info">
           <h4>Local AI Infrastructure</h4>
@@ -857,16 +1191,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🛡️</div>
         <div class="lab-tags">
-          <span class="tag tag-palo">PAN-OS</span>
-          <span class="tag tag-palo">Firewall</span>
+          <span class="tag tag-palo" data-filter="palo">PAN-OS</span>
+          <span class="tag tag-palo" data-filter="palo">Firewall</span>
         </div>
       </div>
       <h3>SOHO Initial Config — PA-220 (PAN-OS 10.2.6)</h3>
       <p>Full initial configuration of a Palo Alto PA-220 for SOHO internet deployment. Covers console access via PuTTY, security zone creation (Untrust-L3, Trust-L3, Trust-L2), interface assignment, VLAN and DHCP server setup, NAT policy, security profile groups, and MGMT IP configuration.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="Cybersecurity_Lab_2_Initial_config__soho__PA220.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="Cybersecurity_Lab_2_Initial_config__soho__PA220.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">Sep 2024</span>
       </div>
     </div>
@@ -875,16 +1207,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🔗</div>
         <div class="lab-tags">
-          <span class="tag tag-palo">PAN-OS</span>
-          <span class="tag tag-net">VPN</span>
+          <span class="tag tag-palo" data-filter="palo">PAN-OS</span>
+          <span class="tag tag-net" data-filter="cisco">VPN</span>
         </div>
       </div>
       <h3>IPSec Site-to-Site VPN — Palo Alto</h3>
       <p>Configuration of an IPSec site-to-site tunnel on the PA-220. Covers IKE gateway setup, IPSec tunnel interface, proxy IDs, security policies permitting tunnel traffic, and verification of encrypted data flow between two simulated sites.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="IPSEC_Site-to-Site.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="IPSEC_Site-to-Site.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">Fall 2024</span>
       </div>
     </div>
@@ -893,16 +1223,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🌐</div>
         <div class="lab-tags">
-          <span class="tag tag-palo">PAN-OS</span>
-          <span class="tag tag-palo">Security</span>
+          <span class="tag tag-palo" data-filter="palo">PAN-OS</span>
+          <span class="tag tag-palo" data-filter="palo">Security</span>
         </div>
       </div>
       <h3>URL Filtering Policy — Palo Alto</h3>
       <p>Configuring URL filtering profiles on the PA-220 to enforce content policy. Covers custom URL category creation, block/allow actions, SSL inspection integration, and testing with real browsing traffic to validate enforcement rules.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="UrlFilteringWriteup2.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="UrlFilteringWriteup2.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">Fall 2024</span>
       </div>
     </div>
@@ -912,17 +1240,15 @@
       <div class="lab-card-header">
         <div class="lab-icon">🔀</div>
         <div class="lab-tags">
-          <span class="tag tag-cisco">eBGP</span>
-          <span class="tag tag-cisco">OSPF</span>
-          <span class="tag tag-cisco">EIGRP</span>
+          <span class="tag tag-cisco" data-filter="cisco">eBGP</span>
+          <span class="tag tag-cisco" data-filter="cisco">OSPF</span>
+          <span class="tag tag-cisco" data-filter="cisco">EIGRP</span>
         </div>
       </div>
       <h3>Cross-Network eBGP Configuration</h3>
       <p>Multi-router lab with 6 ISR 4321s deploying eBGP across three autonomous systems. Internal routing uses OSPF (areas 1 and 3) and EIGRP (AS 2) with full route redistribution. Dual-stack IPv4/IPv6 throughout including OSPFv3 interface-level config and BGP address-family ipv6.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="EBGP_-_Writeup.pdf" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="EBGP_-_Writeup.pdf" data-ext="PDF">⬡ View Report</button>
         <span class="lab-date">Nov 2024</span>
       </div>
     </div>
@@ -931,16 +1257,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🔄</div>
         <div class="lab-tags">
-          <span class="tag tag-cisco">iBGP</span>
-          <span class="tag tag-cisco">BGP</span>
+          <span class="tag tag-cisco" data-filter="cisco">iBGP</span>
+          <span class="tag tag-cisco" data-filter="cisco">BGP</span>
         </div>
       </div>
       <h3>Internal BGP (iBGP) Configuration</h3>
       <p>Configuration of iBGP peering within a single autonomous system. Covers full-mesh iBGP requirements, route reflectors, next-hop-self, and synchronization. Demonstrates how iBGP differs from eBGP in AS path handling and loop prevention behavior.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="iBGPwrite.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="iBGPwrite.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">Nov 2024</span>
       </div>
     </div>
@@ -949,16 +1273,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🛰️</div>
         <div class="lab-tags">
-          <span class="tag tag-net">Starlink</span>
-          <span class="tag tag-cisco">Ethernet</span>
+          <span class="tag tag-net" data-filter="cisco">Starlink</span>
+          <span class="tag tag-cisco" data-filter="cisco">Ethernet</span>
         </div>
       </div>
       <h3>Starlink Setup & Ethernet Configuration</h3>
       <p>Physical deployment and configuration of a Starlink dish and router, including Ethernet bypass mode to remove the Starlink router from the path and pass a public IP directly to a third-party firewall. Covers bypass adapter setup, static routing, and connectivity verification.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="Starlink_Setup_and_Ethernet_Configuration_Via_the_Starlink_Router.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="Starlink_Setup_and_Ethernet_Configuration_Via_the_Starlink_Router.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">Fall 2024</span>
       </div>
     </div>
@@ -968,16 +1290,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🧠</div>
         <div class="lab-tags">
-          <span class="tag tag-ai">LLM</span>
-          <span class="tag tag-ai">PyTorch DDP</span>
+          <span class="tag tag-ai" data-filter="ai">LLM</span>
+          <span class="tag tag-ai" data-filter="ai">PyTorch DDP</span>
         </div>
       </div>
       <h3>Local LLM Pretraining — 984M Parameter Model</h3>
       <p>Full transformer model trained from scratch on a ThinkStation P7 with 2× Titan RTX GPUs. Covers Docker + NVIDIA Container Toolkit setup, BPE tokenization via SentencePiece, distributed training with torchrun and NCCL, mixed precision FP16, gradient checkpointing, and supervised fine-tuning (SFT).</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="Local_LLM_Lab_Report_Cameron_Schaff.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="Local_LLM_Lab_Report_Cameron_Schaff.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">2025</span>
       </div>
     </div>
@@ -986,16 +1306,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">⚡</div>
         <div class="lab-tags">
-          <span class="tag tag-ai">HuggingFace</span>
-          <span class="tag tag-ai">GPU Offload</span>
+          <span class="tag tag-ai" data-filter="ai">HuggingFace</span>
+          <span class="tag tag-ai" data-filter="ai">GPU Offload</span>
         </div>
       </div>
       <h3>GPU Offload Testing — Nemotron Super 49B</h3>
       <p>Running NVIDIA's Nemotron Super 49B parameter model via HuggingFace with multi-GPU offloading across consumer hardware. Tests layer distribution between GPUs, quantization strategies (GPTQ/AWQ), and inference throughput at different offload configurations.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="AI_GPU_offload_testing_via_HF___Nemotron_super_49B_v1__Nvidi.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="AI_GPU_offload_testing_via_HF___Nemotron_super_49B_v1__Nvidi.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">2025</span>
       </div>
     </div>
@@ -1004,16 +1322,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🎨</div>
         <div class="lab-tags">
-          <span class="tag tag-ai">ComfyUI</span>
-          <span class="tag tag-ai">Multi-GPU</span>
+          <span class="tag tag-ai" data-filter="ai">ComfyUI</span>
+          <span class="tag tag-ai" data-filter="ai">Multi-GPU</span>
         </div>
       </div>
       <h3>ComfyUI Distributed Node Multi-GPU</h3>
       <p>Implementing ComfyUI with distributed node execution across multiple GPUs for parallel image generation. Covers node graph architecture, VRAM allocation per model component, batch inference pipelines, and network-connected worker nodes for scaling throughput.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="ComfyUI_images_Distributed_Node_MultiGPU_implementation.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="ComfyUI_images_Distributed_Node_MultiGPU_implementation.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">2025</span>
       </div>
     </div>
@@ -1022,16 +1338,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">🔬</div>
         <div class="lab-tags">
-          <span class="tag tag-ai">LLM</span>
-          <span class="tag tag-ai">RAG</span>
+          <span class="tag tag-ai" data-filter="ai">LLM</span>
+          <span class="tag tag-ai" data-filter="ai">RAG</span>
         </div>
       </div>
       <h3>LLM Augmentation — RAG & Context</h3>
       <p>Implementing retrieval-augmented generation (RAG) to augment a local model with external knowledge. Covers vector embedding generation, FAISS similarity search, context window injection, and prompt engineering for grounded responses without fine-tuning.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="LLM_Augmentation.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="LLM_Augmentation.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">2025</span>
       </div>
     </div>
@@ -1040,16 +1354,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">💻</div>
         <div class="lab-tags">
-          <span class="tag tag-ai">Local AI</span>
-          <span class="tag tag-ai">Program</span>
+          <span class="tag tag-ai" data-filter="ai">Local AI</span>
+          <span class="tag tag-ai" data-filter="ai">Program</span>
         </div>
       </div>
       <h3>Local AI Program Lab (Enhanced)</h3>
       <p>Comprehensive local AI deployment program covering model selection, hardware requirements, Ollama and LM Studio setup, API integration for local inference, and building applications that call local model endpoints as a drop-in for cloud AI providers.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="Enhanced_LocalAIProgramLab.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="Enhanced_LocalAIProgramLab.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">2025</span>
       </div>
     </div>
@@ -1058,16 +1370,14 @@
       <div class="lab-card-header">
         <div class="lab-icon">📊</div>
         <div class="lab-tags">
-          <span class="tag tag-ai">AI Lab</span>
-          <span class="tag tag-ai">Writeup</span>
+          <span class="tag tag-ai" data-filter="ai">AI Lab</span>
+          <span class="tag tag-ai" data-filter="ai">Writeup</span>
         </div>
       </div>
       <h3>AI Lab Writeup — Systems Overview</h3>
       <p>Comprehensive writeup of the AI infrastructure build: workstation selection, GPU configuration, OS setup (Pop!_OS with NVIDIA ISO), CUDA toolkit installation, benchmarking methodology, and lessons learned running large model inference on consumer-grade hardware.</p>
       <div class="lab-card-footer">
-        <a class="lab-doc-link" href="AI-Lab-Writeup.docx" download>
-          ↓ Download Report
-        </a>
+        <button class="lab-doc-link" onclick="openLabModal(this)" data-href="AI-Lab-Writeup.docx" data-ext="DOCX">⬡ View Report</button>
         <span class="lab-date">2025</span>
       </div>
     </div>
@@ -1186,7 +1496,103 @@
   <p>Built with <strong>HTML / CSS / JS</strong> · Hosted on GitHub Pages</p>
 </footer>
 
+<!-- ── LAB REPORT MODAL ── -->
+<div class="lab-modal-overlay" id="labModal">
+  <div class="lab-modal-box">
+    <div class="lab-modal-accent-bar" id="labModalBar"></div>
+    <button class="lab-modal-close" id="labModalClose">✕</button>
+    <div class="lab-modal-inner">
+      <div class="lab-modal-eyebrow">
+        <div class="lab-modal-icon-lg" id="labModalIcon"></div>
+        <div class="lab-modal-meta" id="labModalCat"></div>
+        <div class="lab-modal-date" id="labModalDate"></div>
+      </div>
+      <div class="lab-modal-title" id="labModalTitle"></div>
+      <div class="lab-modal-tags" id="labModalTags"></div>
+      <div class="lab-modal-desc" id="labModalDesc"></div>
+      <div class="lab-modal-actions" id="labModalActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CERT MODAL ── -->
+<div class="modal-overlay" id="certModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-header">
+      <div class="modal-icon" id="modalIcon"></div>
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-sub" id="modalSub"></div>
+      </div>
+      <span class="modal-status cert-status" id="modalStatus"></span>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-skills" id="modalSkills"></div>
+  </div>
+</div>
+
 <script>
+  // ── Lab Report Modal ──
+  function openLabModal(btn) {
+    // Walk up to find the parent lab-card
+    const card = btn.closest('.lab-card');
+    const href = btn.dataset.href;
+    const ext  = btn.dataset.ext || 'FILE';
+    const isPDF = ext === 'PDF';
+
+    // Pull data from the card DOM
+    const icon  = card.querySelector('.lab-icon').textContent.trim();
+    const title = card.querySelector('h3').textContent.trim();
+    const desc  = card.querySelector('p').textContent.trim();
+    const date  = card.querySelector('.lab-date').textContent.trim();
+    const cat   = card.dataset.cat;
+    const tags  = [...card.querySelectorAll('.tag')].map(t => t.textContent.trim());
+    const accentVar = getComputedStyle(card).getPropertyValue('--card-accent').trim() || 'var(--accent)';
+
+    const catLabels = { palo: 'PALO ALTO NGFW', cisco: 'CISCO ENTERPRISE', ai: 'AI / GPU INFRA' };
+
+    // Populate modal
+    document.getElementById('labModalBar').style.background = accentVar;
+    document.getElementById('labModalIcon').textContent = icon;
+    document.getElementById('labModalCat').textContent  = catLabels[cat] || cat.toUpperCase();
+    document.getElementById('labModalDate').textContent = date;
+    document.getElementById('labModalTitle').textContent = title;
+    document.getElementById('labModalDesc').textContent  = desc;
+
+    // Tags
+    const tagColorClass = { palo: 'tag-palo', cisco: 'tag-cisco', ai: 'tag-ai' };
+    document.getElementById('labModalTags').innerHTML = tags
+      .map(t => `<span class="tag ${tagColorClass[cat] || 'tag-net'}">${t}</span>`)
+      .join('');
+
+    // Actions
+    const actionsEl = document.getElementById('labModalActions');
+    if (isPDF) {
+      actionsEl.innerHTML = `
+        <a class="lab-modal-dl lab-modal-dl-primary" href="${href}" target="_blank" rel="noopener">↗ Open PDF</a>
+        <a class="lab-modal-dl lab-modal-dl-secondary" href="${href}" download>↓ Download</a>
+        <span class="lab-modal-filetype">PDF</span>`;
+    } else {
+      actionsEl.innerHTML = `
+        <a class="lab-modal-dl lab-modal-dl-primary" href="${href}" download>↓ Download Report</a>
+        <span class="lab-modal-filetype">${ext}</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);align-self:center;margin-left:4px;">· opens in Word / compatible app</span>`;
+    }
+
+    document.getElementById('labModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLabModal() {
+    document.getElementById('labModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('labModalClose').addEventListener('click', closeLabModal);
+  document.getElementById('labModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('labModal')) closeLabModal();
+  });
+
   // ── Scroll reveal ──
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -1213,12 +1619,121 @@
   // ── Filter ──
   function filterCards(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
     document.querySelectorAll('.lab-card').forEach(card => {
       const match = cat === 'all' || card.dataset.cat === cat;
       card.style.display = match ? 'flex' : 'none';
     });
+    // sync tag active state
+    document.querySelectorAll('.tag[data-filter]').forEach(t => {
+      t.classList.toggle('active-filter', t.dataset.filter === cat);
+    });
   }
+
+  // ── Tag click filtering ──
+  document.querySelectorAll('.tag[data-filter]').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const cat = tag.dataset.filter;
+      const matchingBtn = [...document.querySelectorAll('.filter-btn')].find(b => {
+        return b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${cat}'`);
+      });
+      filterCards(cat, matchingBtn);
+      document.getElementById('labs').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // ── Hamburger nav ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ── Cert modal data ──
+  const certData = {
+    ccna: {
+      icon: '🏆', title: 'Cisco CCNA', sub: '200-301 · Cisco Certified Network Associate',
+      status: 'EARNED', statusClass: 'status-earned',
+      body: `The CCNA validates foundational network engineering skills. Covers <strong>IP routing and switching</strong>, network access, IP connectivity, IP services, security fundamentals, and network automation. Hands-on proficiency with Cisco IOS including interface configuration, VLAN management, OSPF/EIGRP routing, ACLs, NAT, and device hardening. This certification formed the foundation for all subsequent lab work on enterprise-grade hardware.`,
+      skills: ['IP Routing', 'VLANs', 'OSPF', 'ACLs', 'NAT', 'STP', 'Network Security', 'Cisco IOS', 'IPv4/IPv6']
+    },
+    secplus: {
+      icon: '🔒', title: 'CompTIA Security+', sub: 'SY0-701 · Vendor-Neutral Security Certification',
+      status: 'EARNED', statusClass: 'status-earned',
+      body: `Security+ is an industry-standard, vendor-neutral certification covering the core technical skills needed in a security role. Topics include <strong>threat detection and analysis</strong>, identity and access management, infrastructure security, cryptography, PKI, incident response, and security architecture. Aligns with DoD 8570 requirements and is widely recognized across government and enterprise environments.`,
+      skills: ['Threat Analysis', 'Cryptography', 'PKI', 'IAM', 'Incident Response', 'Vulnerability Mgmt', 'Zero Trust', 'SIEM']
+    },
+    awscloud: {
+      icon: '☁️', title: 'AWS Cloud Foundations', sub: 'Amazon Web Services · Cloud Practitioner Track',
+      status: 'EARNED', statusClass: 'status-earned',
+      body: `Demonstrates understanding of core AWS cloud concepts, architecture, and services. Covers the <strong>AWS global infrastructure</strong>, compute services (EC2, Lambda), storage (S3, EBS), networking (VPC, Route 53), database services, security best practices, IAM, billing, and the shared responsibility model. Provides the cloud fluency to bridge on-premises network engineering with cloud-native infrastructure.`,
+      skills: ['EC2', 'S3', 'VPC', 'IAM', 'Lambda', 'Route 53', 'Cloud Architecture', 'Shared Responsibility']
+    },
+    awsai: {
+      icon: '🤖', title: 'AWS AI Fundamentals', sub: 'Amazon Web Services · AI/ML Concepts & Services',
+      status: 'EARNED', statusClass: 'status-earned',
+      body: `Covers the foundational concepts of artificial intelligence and machine learning on the AWS platform. Topics include <strong>ML pipeline stages</strong>, supervised/unsupervised learning, AWS AI services (SageMaker, Rekognition, Comprehend, Bedrock), responsible AI practices, model evaluation, and deploying AI workloads in the cloud. Complements hands-on local AI infrastructure work with cloud-side AI deployment knowledge.`,
+      skills: ['SageMaker', 'Bedrock', 'ML Pipelines', 'Responsible AI', 'Model Evaluation', 'AWS AI Services', 'Generative AI']
+    },
+    ccnp: {
+      icon: '⚡', title: 'Cisco CCNP Enterprise', sub: 'Advanced Enterprise Networking Track',
+      status: 'ADVANCED TRACK', statusClass: 'status-progress',
+      body: `The CCNP Enterprise track builds on CCNA to cover <strong>advanced enterprise routing and switching</strong>, SD-WAN, wireless, and network automation. Core exam (ENCOR 350-401) covers architecture, virtualization, infrastructure, assurance, security, and automation. Applied through lab work in BGP (iBGP/eBGP), advanced OSPF, EIGRP redistribution, multi-area routing, and IPSec VPN tunneling on physical Cisco hardware.`,
+      skills: ['BGP / eBGP / iBGP', 'OSPF Multi-area', 'EIGRP', 'Route Redistribution', 'IPSec VPN', 'SD-WAN Concepts', 'QoS', 'Network Automation']
+    },
+    pcnsa: {
+      icon: '🔥', title: 'Palo Alto PCNSA', sub: 'Palo Alto Certified Network Security Administrator',
+      status: 'APPLIED KNOWLEDGE', statusClass: 'status-progress',
+      body: `The PCNSA validates the ability to operate and manage Palo Alto Networks next-generation firewalls. Working knowledge covers <strong>PAN-OS 10.x</strong> security zone architecture, security policy construction, NAT policies, threat prevention profiles, URL filtering, App-ID, User-ID, SSL inspection, and IPSec VPN configuration. All applied on a physical PA-220 in a live lab environment — including SOHO deployment and site-to-site VPN tunneling.`,
+      skills: ['PAN-OS 10.x', 'Security Zones', 'App-ID', 'Threat Prevention', 'URL Filtering', 'NAT Policy', 'IPSec VPN', 'SSL Inspection']
+    },
+    ailab: {
+      icon: '🖥️', title: 'Local AI Infrastructure', sub: 'Lenovo ThinkStation P7 · 2× NVIDIA Titan RTX',
+      status: 'HANDS-ON', statusClass: 'status-earned',
+      body: `Built and operate a dedicated AI compute workstation running <strong>Pop!_OS with NVIDIA CUDA</strong>. Practical experience includes multi-GPU DDP training with PyTorch, GPTQ/AWQ quantization, HuggingFace model deployment, ComfyUI distributed node execution, FAISS-based RAG pipelines, and running large models (up to 49B parameters) via GPU offloading. Every lab report on this site was produced on this physical hardware stack.`,
+      skills: ['PyTorch DDP', 'CUDA', 'Quantization (GPTQ/AWQ)', 'HuggingFace', 'RAG / FAISS', 'ComfyUI', 'Ollama', 'Pop!_OS', 'Docker']
+    }
+  };
+
+  // ── Modal open/close ──
+  const modal = document.getElementById('certModal');
+  const modalClose = document.getElementById('modalClose');
+
+  document.querySelectorAll('.cert-card[data-detail]').forEach(card => {
+    card.addEventListener('click', () => {
+      const key = card.dataset.detail;
+      const d = certData[key];
+      if (!d) return;
+      document.getElementById('modalIcon').textContent = d.icon;
+      document.getElementById('modalTitle').textContent = d.title;
+      document.getElementById('modalSub').textContent = d.sub;
+      const statusEl = document.getElementById('modalStatus');
+      statusEl.textContent = d.status;
+      statusEl.className = 'modal-status cert-status ' + d.statusClass;
+      document.getElementById('modalBody').innerHTML = d.body;
+      const skillsEl = document.getElementById('modalSkills');
+      skillsEl.innerHTML = d.skills.map(s => `<span class="modal-skill-tag">${s}</span>`).join('');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeLabModal(); }
+  });
 </script>
 </body>
 </html>
